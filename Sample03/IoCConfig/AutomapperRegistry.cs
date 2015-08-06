@@ -12,8 +12,8 @@ namespace Sample03.IoCConfig
     {
         public AutomapperRegistry()
         {
-            var platformSpecificRegistry = PlatformAdapter.Resolve<IPlatformSpecificMapperRegistry>();
-            platformSpecificRegistry.Initialize();
+            //var platformSpecificRegistry = PlatformAdapter.Resolve<IPlatformSpecificMapperRegistry>();
+            //platformSpecificRegistry.Initialize();
 
             For<ConfigurationStore>().Singleton().Use<ConfigurationStore>()
                 .Ctor<IEnumerable<IObjectMapper>>().Is(MapperRegistry.Mappers);

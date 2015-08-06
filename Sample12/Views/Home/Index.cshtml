@@ -1,4 +1,8 @@
 ﻿@model Sample12.ViewModels.UserViewModel
+@{
+    //var meta = ModelMetadata.FromLambdaExpression(x => x.LastName, ViewData);
+    //var tooltip = meta.AdditionalValues["Tooltip"];
+}
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form" }))
 {
@@ -15,6 +19,8 @@
             <div class="col-md-10">
                 @Html.TextBoxFor(d => d.LastName)
                 @Html.ValidationMessageFor(d => d.LastName)
+                @*@ModelMetadata.FromLambdaExpression(x => x.LastName, ViewData).AdditionalValues["Tooltip"]
+                @tooltip*@
             </div>
         </div>
         <div class="form-group">
