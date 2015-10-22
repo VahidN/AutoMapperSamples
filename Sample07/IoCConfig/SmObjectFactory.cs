@@ -4,7 +4,6 @@ using System.Threading;
 using Sample07.Services;
 using Sample07.Services.Contracts;
 using StructureMap;
-using StructureMap.Graph;
 
 namespace Sample07.IoCConfig
 {
@@ -32,8 +31,7 @@ namespace Sample07.IoCConfig
 
                 cfg.Scan(scan =>
                 {
-                    scan.TheCallingAssembly();
-                    //scan.AssemblyContainingType<SomeType>(); // for other asms, if any.
+                    scan.AssemblyContainingType<IUsersService>(); // for other asms, if any.
                     scan.WithDefaultConventions();
                 });
             });

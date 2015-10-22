@@ -42,8 +42,7 @@ namespace Sample09
             using (var context = new MyContext())
             {
                 var viewOrders = context.Orders
-                    .Project()
-                    .To<NumberOfOrderViewModel>()
+                    .ProjectTo<NumberOfOrderViewModel>()
                     .Decompile()
                     .ToList();
                 // don't use
@@ -63,8 +62,7 @@ namespace Sample09
             using (var context = new MyContext())
             {
                 var viewOrders = context.Orders
-                    .Project()
-                    .To<OrderShipViewModel>()
+                    .ProjectTo<OrderShipViewModel>()
                     .Decompile()
                     .ToList();
                 // don't use
@@ -84,8 +82,7 @@ namespace Sample09
             using (var context = new MyContext())
             {
                 var viewOrder = context.Orders
-                    .Project()
-                    .To<OrderDateViewModel>()
+                    .ProjectTo<OrderDateViewModel>()
                     .Decompile()
                     .FirstOrDefault();
                 // don't use
@@ -107,8 +104,7 @@ namespace Sample09
             using (var context = new MyContext())
             {
                 var viewOrders = context.Orders
-                    .Project()
-                    .To<OrderViewModel>()
+                    .ProjectTo<OrderViewModel>()
                     .Decompile()
                     .ToList();
                 // don't use
@@ -132,8 +128,7 @@ namespace Sample09
             using (var context = new MyContext())
             {
                 var viewOrders = context.Orders
-                    .Project()
-                    .To<OrderViewModel>()
+                    .ProjectTo<OrderViewModel>()
                     .Decompile()
                     .ToList();
                 // don't use
@@ -153,8 +148,7 @@ namespace Sample09
             using (var context = new MyContext())
             {
                 var viewCustomers = context.Customers
-                    .Project()
-                    .To<CustomerViewModel>()
+                    .ProjectTo<CustomerViewModel>()
                     .Decompile()
                     .ToList();
                 // don't use

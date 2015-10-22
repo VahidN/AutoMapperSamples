@@ -13,10 +13,5 @@ namespace Sample02.AutoMapperConfig
             this.CreateMap<DateTime, string>().ConvertUsing(new StringFromDateTimeTypeConverter());
             this.CreateMap<User, UserViewModel>();
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

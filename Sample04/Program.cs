@@ -26,19 +26,14 @@ namespace Sample04
     {
         protected override void Configure()
         {
-            this.CreateMap<UserViewModel, User>();
-              //  .ForMember(user => user.Advertisements, opt => opt.Ignore());
+            this.CreateMap<UserViewModel, User>()
+                .ForMember(user => user.Advertisements, opt => opt.Ignore());
 
             this.CreateMap<Advertisement, AdvertisementViewModel>();
 
             this.CreateMap<AdvertisementViewModel, Advertisement>()
                 .ForMember(advertisement => advertisement.Description, opt => opt.Ignore())
                 .ForMember(advertisement => advertisement.User, opt => opt.Ignore());
-        }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
         }
     }
 

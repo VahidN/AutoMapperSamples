@@ -10,10 +10,5 @@ namespace Sample12.AutoMapperConfig
         {
             this.CreateMap<UserModel, UserViewModel>();
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

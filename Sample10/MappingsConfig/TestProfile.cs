@@ -15,10 +15,5 @@ namespace Sample10.MappingsConfig
                  .ForMember(dest => dest.PostsCount,
                             opt => opt.MapFrom(src => src.BlogPosts.Count()));
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

@@ -12,10 +12,5 @@ namespace Sample13.AutoMapperConfig
             this.CreateMap<UserModel, UserViewModel>()
                 .ForMember(d => d.UserIdentityName, opt => opt.MapFrom(src => userIdentityName));
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

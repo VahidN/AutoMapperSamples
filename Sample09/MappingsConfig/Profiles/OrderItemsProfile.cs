@@ -10,10 +10,5 @@ namespace Sample09.MappingsConfig.Profiles
         {
             this.CreateMap<OrderItem, OrderItemsViewModel>();
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

@@ -9,10 +9,5 @@ namespace Sample08.MappingProfiles
         {
             this.CreateMap<Student, StudentViewModel>();
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

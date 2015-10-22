@@ -31,8 +31,7 @@ namespace Sample08
             using (var context = new MyContext())
             {
                 var students = context.Students
-                    .Project()
-                    .To<StudentViewModel>()
+                    .ProjectTo<StudentViewModel>()
                     .OrderBy(x => x.Id)
                     .Decompile()
                     .ToPagedList(pageNumber: 1, pageSize: 1);
@@ -61,8 +60,7 @@ namespace Sample08
             using (var context = new MyContext())
             {
                 var students = context.Students
-                    .Project()
-                    .To<StudentViewModel>()
+                    .ProjectTo<StudentViewModel>()
                     .Decompile()
                     .ToList();
 
@@ -86,7 +84,7 @@ namespace Sample08
             {
                 try
                 {
-                    var students = context.Students.Project().To<StudentViewModel>().ToList();
+                    var students = context.Students.ProjectTo<StudentViewModel>().ToList();
                     foreach (var student in students)
                     {
                         Console.WriteLine(student.FullName);

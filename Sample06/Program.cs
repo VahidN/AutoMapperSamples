@@ -96,6 +96,7 @@ namespace Sample06
             });
 
 
+            Console.WriteLine("Press a key ...");
             Console.ReadKey();
         }
     }

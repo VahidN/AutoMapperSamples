@@ -10,10 +10,5 @@ namespace Sample07.MappingProfiles
         {
             this.CreateMap<IDataRecord, User>();
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

@@ -13,10 +13,5 @@ namespace Sample07.MappingProfiles
                            options => options.MapFrom(src =>
                                 src.GetString(src.GetOrdinal("Title"))));
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

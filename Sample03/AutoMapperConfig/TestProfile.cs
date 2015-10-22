@@ -15,10 +15,5 @@ namespace Sample03.AutoMapperConfig
                             return dt.ToShamsiDateTime();
                         }));
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

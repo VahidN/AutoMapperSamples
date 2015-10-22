@@ -23,8 +23,7 @@ namespace Sample10
             using (var context = new MyContext())
             {
                 var user1 = context.Users
-                                   .Project()
-                                   .To<UserViewModel>()
+                                   .ProjectTo<UserViewModel>()
                                    .FirstOrDefault();
 
                 /*

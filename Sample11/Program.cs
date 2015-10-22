@@ -23,8 +23,9 @@ namespace Sample11
             using (var context = new MyContext())
             {
                 var user1 = context.Users
-                                   .Project()
-                                   .To<UserViewModel>(parameters: new { }, membersToExpand: viewModel => viewModel.Emails)
+                                   .ProjectTo<UserViewModel>(
+                                            parameters: new { },
+                                            membersToExpand: viewModel => viewModel.Emails)
                                    .FirstOrDefault();
 
                 /*

@@ -22,10 +22,5 @@ namespace Sample02.AutoMapperConfig
                              return dt.ToShortDateString();
                         }));*/
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

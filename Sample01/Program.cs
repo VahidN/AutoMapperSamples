@@ -23,11 +23,6 @@ namespace Sample01
         {
             this.CreateMap<User, UserViewModel>();
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 
     class Program
@@ -74,8 +69,7 @@ namespace Sample01
 
             using (var context = new MyContext())
             {
-                var uiUser = context.Users.Project()
-                                          .To<UserViewModel>()
+                var uiUser = context.Users.ProjectTo<UserViewModel>()
                                           .FirstOrDefault();
                 if (uiUser != null)
                 {

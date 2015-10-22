@@ -12,10 +12,5 @@ namespace Sample11.MappingsConfig
                     .ForMember(dest => dest.Addresses, opt => opt.ExplicitExpansion())
                     .ForMember(dest => dest.Emails, opt => opt.ExplicitExpansion());
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

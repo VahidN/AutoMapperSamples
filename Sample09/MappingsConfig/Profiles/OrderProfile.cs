@@ -28,10 +28,5 @@ namespace Sample09.MappingsConfig.Profiles
                //.ForMember(dest => dest.OrderItems, opt => opt.Ignore())
                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.FullName));
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

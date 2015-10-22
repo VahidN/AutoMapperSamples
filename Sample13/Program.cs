@@ -30,8 +30,7 @@ namespace Sample13
 
 
             var uiUsers = users.AsQueryable()
-                               .Project()
-                               .To<UserViewModel>(new { userIdentityName = "User.Identity.Name Value Here" })
+                               .ProjectTo<UserViewModel>(new { userIdentityName = "User.Identity.Name Value Here" })
                                .ToList();
 
             foreach (var user in uiUsers)

@@ -70,6 +70,7 @@ namespace Sample07.Services
                 var reader = command.ExecuteReader();
                 try
                 {
+                    // moved to https://github.com/AutoMapper/AutoMapper.Data
                     return Mapper.Map<IDataReader, IEnumerable<T>>(reader);
                 }
                 finally

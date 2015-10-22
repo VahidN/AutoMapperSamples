@@ -13,10 +13,5 @@ namespace Sample09.MappingsConfig.Profiles
              .ForMember(dest => dest.Bio, opt => opt.MapFrom(entity => entity.Bio ?? "N/A"));
             // opt.NullSubstitute doesn't work here
         }
-
-        public override string ProfileName
-        {
-            get { return this.GetType().Name; }
-        }
     }
 }

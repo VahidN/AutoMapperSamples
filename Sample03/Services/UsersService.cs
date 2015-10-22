@@ -37,13 +37,15 @@ namespace Sample03.Services
             {
                 users.Add(new User
                 {
-                    Id = i+1,
+                    Id = i + 1,
                     Name = "Test " + i,
                     RegistrationDate = DateTime.Now.AddDays(-10)
                 });
             }
 
-            return users.AsQueryable().Project(_mappingEngine).To<UserViewModel>().ToList();
+            return users.AsQueryable()
+                        .ProjectTo<UserViewModel>(parameters: null, mappingEngine: _mappingEngine)
+                        .ToList();
         }
     }
 }
