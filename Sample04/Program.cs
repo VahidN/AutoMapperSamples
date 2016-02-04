@@ -43,17 +43,19 @@ namespace Sample04
         {
             InitEF.StartDb();
 
-            Mapper.Initialize(cfg => // In Application_Start()
+            var config = new MapperConfiguration(cfg => // In Application_Start()
             {
                 cfg.AddProfile<TestProfile>();
             });
-            Mapper.AssertConfigurationIsValid();
+            config.AssertConfigurationIsValid();
 
-            updateCollection();
-            mappToCollection();
+            var mapper = config.CreateMapper();
+
+            updateCollection(mapper);
+            mappToCollection(mapper);
         }
 
-        private static void updateCollection()
+        private static void updateCollection(IMapper mapper)
         {
             var uiUser1 = new UserViewModel
             {
@@ -79,7 +81,7 @@ namespace Sample04
             using (var ctx = new MyContext())
             {
                 var dbUser1 = ctx.Users.Include(user => user.Advertisements).First(x => x.Id == uiUser1.Id);
-                Mapper.Map(source: uiUser1, destination: dbUser1);
+                mapper.Map(source: uiUser1, destination: dbUser1);
 
                 foreach (var uiUserAdvertisement in uiUser1.Advertisements)
                 {
@@ -87,13 +89,13 @@ namespace Sample04
                     if (dbUserAdvertisement == null)
                     {
                         // Add new record
-                        var advertisement = Mapper.Map<AdvertisementViewModel, Advertisement>(uiUserAdvertisement);
+                        var advertisement = mapper.Map<AdvertisementViewModel, Advertisement>(uiUserAdvertisement);
                         dbUser1.Advertisements.Add(advertisement);
                     }
                     else
                     {
                         // Update the existing record
-                        Mapper.Map(uiUserAdvertisement, dbUserAdvertisement);
+                        mapper.Map(uiUserAdvertisement, dbUserAdvertisement);
                     }
                 }
 
@@ -101,13 +103,13 @@ namespace Sample04
             }
         }
 
-        private static void mappToCollection()
+        private static void mappToCollection(IMapper mapper)
         {
             using (var ctx = new MyContext())
             {
                 var adsList = ctx.Advertisements.ToList();
                 var adsViewModel = new List<AdvertisementViewModel>();
-                Mapper.Map(source: adsList, destination: adsViewModel);
+                mapper.Map(source: adsList, destination: adsViewModel);
 
                 Console.Write(adsViewModel.First().Title);
             }

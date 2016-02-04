@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using StructureMap;
+using StructureMap.Configuration.DSL;
 
-namespace Sample03.IoCConfig
+namespace Sample07.IoCConfig
 {
     public class AutoMapperRegistry : Registry
     {

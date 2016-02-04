@@ -42,8 +42,8 @@ namespace Sample06
                 var user = new User
                 {
                     Id = i,
-                    UserName = "User" + i,
-                    Password = "1" + i + "2" + i,
+                    UserName = string.Format("User{0}", i),
+                    Password = string.Format("1{0}2{0}", i),
                     LastLogin = DateTime.Now
                 };
                 users.Add(user);
@@ -78,21 +78,28 @@ namespace Sample06
             });
 
             Console.WriteLine("AutoMapper mapping, DynamicMap using List");
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMissingTypeMaps = true; // = Mapper.DynamicMap
+            });
+            var mapper = config.CreateMapper();
+
             RunActionMeasurePerformance(() =>
             {
-                var userMap = Mapper.DynamicMap<List<User>>(users).ToList();
+                var userMap = mapper.Map<List<User>>(users).ToList();
             });
 
             Console.WriteLine("AutoMapper mapping, Map using List");
             RunActionMeasurePerformance(() =>
             {
-                var userMap = Mapper.Map<List<User>>(users).ToList();
+                var userMap = mapper.Map<List<User>>(users).ToList();
             });
 
             Console.WriteLine("AutoMapper mapping, Map using IEnumerable");
             RunActionMeasurePerformance(() =>
             {
-                var userMap = Mapper.Map<IEnumerable<User>>(users).ToList();
+                var userMap = mapper.Map<IEnumerable<User>>(users).ToList();
             });
 
 

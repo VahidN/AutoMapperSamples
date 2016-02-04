@@ -9,11 +9,11 @@ namespace Sample03.Services
 {
     public class UsersService : IUsersService
     {
-        private readonly IMappingEngine _mappingEngine;
+        private readonly IMapper _mapper;
 
-        public UsersService(IMappingEngine mappingEngine)
+        public UsersService(IMapper mapper)
         {
-            _mappingEngine = mappingEngine;
+            _mapper = mapper;
         }
 
         public UserViewModel GetName(int id)
@@ -26,7 +26,7 @@ namespace Sample03.Services
             };
 
             var uiUser = new UserViewModel();
-            _mappingEngine.Map(source: dbUser1, destination: uiUser);
+            _mapper.Map(source: dbUser1, destination: uiUser);
             return uiUser;
         }
 
@@ -38,13 +38,13 @@ namespace Sample03.Services
                 users.Add(new User
                 {
                     Id = i + 1,
-                    Name = "Test " + i,
+                    Name = string.Format("Test {0}", i),
                     RegistrationDate = DateTime.Now.AddDays(-10)
                 });
             }
 
             return users.AsQueryable()
-                        .ProjectTo<UserViewModel>(parameters: null, mappingEngine: _mappingEngine)
+                        .ProjectTo<UserViewModel>(parameters: null, configuration: _mapper.ConfigurationProvider)
                         .ToList();
         }
     }

@@ -23,6 +23,8 @@ namespace Sample07.IoCConfig
             {
                 var connection1 = ConfigurationManager.ConnectionStrings["Connection1"].ConnectionString;
 
+                cfg.AddRegistry<AutoMapperRegistry>();
+
                 cfg.For<IUsersService>().Use<UsersService>()
                     .Ctor<string>("connectionString").Is(connection1);
 

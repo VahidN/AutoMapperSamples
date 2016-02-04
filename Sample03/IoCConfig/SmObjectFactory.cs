@@ -20,7 +20,7 @@ namespace Sample03.IoCConfig
         {
             var container = new Container(cfg =>
             {
-                cfg.AddRegistry<AutomapperRegistry>();
+                cfg.AddRegistry<AutoMapperRegistry>();
                 cfg.Scan(scan =>
                 {
                     scan.TheCallingAssembly();

@@ -15,23 +15,24 @@ namespace Sample08
         static void Main(string[] args)
         {
             InitEF.StartDb();
-            Mapper.Initialize(cfg => // In Application_Start()
+            var config = new MapperConfiguration(cfg => // In Application_Start()
             {
                 cfg.AddProfile<StudentsProfile>();
             });
+            var mapper = config.CreateMapper();
 
             getNamesDoesNotWork();
-            getFullNamesDoesNotWork();
-            getFullNamesDoesWork();
-            getPagedFullNamesDoesWork();
+            getFullNamesDoesNotWork(mapper);
+            getFullNamesDoesWork(mapper);
+            getPagedFullNamesDoesWork(mapper);
         }
 
-        private static void getPagedFullNamesDoesWork()
+        private static void getPagedFullNamesDoesWork(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 var students = context.Students
-                    .ProjectTo<StudentViewModel>()
+                    .ProjectTo<StudentViewModel>(mapper.ConfigurationProvider)
                     .OrderBy(x => x.Id)
                     .Decompile()
                     .ToPagedList(pageNumber: 1, pageSize: 1);
@@ -55,12 +56,12 @@ namespace Sample08
             }
         }
 
-        private static void getFullNamesDoesWork()
+        private static void getFullNamesDoesWork(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 var students = context.Students
-                    .ProjectTo<StudentViewModel>()
+                    .ProjectTo<StudentViewModel>(mapper.ConfigurationProvider)
                     .Decompile()
                     .ToList();
 
@@ -78,13 +79,13 @@ namespace Sample08
             }
         }
 
-        private static void getFullNamesDoesNotWork()
+        private static void getFullNamesDoesNotWork(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 try
                 {
-                    var students = context.Students.ProjectTo<StudentViewModel>().ToList();
+                    var students = context.Students.ProjectTo<StudentViewModel>(mapper.ConfigurationProvider).ToList();
                     foreach (var student in students)
                     {
                         Console.WriteLine(student.FullName);

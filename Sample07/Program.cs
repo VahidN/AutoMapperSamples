@@ -1,7 +1,5 @@
 ﻿using System;
-using AutoMapper;
 using Sample07.IoCConfig;
-using Sample07.MappingProfiles;
 using Sample07.Services.Contracts;
 
 namespace Sample07
@@ -10,13 +8,6 @@ namespace Sample07
     {
         static void Main(string[] args)
         {
-            Mapper.Initialize(cfg => // In Application_Start()
-            {
-                cfg.AddProfile<UsersProfile>();
-                cfg.AddProfile<AdvertisementsProfile>();
-            });
-
-
             printUsers();
             printAdvertisements();
         }

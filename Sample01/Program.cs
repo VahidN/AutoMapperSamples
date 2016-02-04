@@ -31,18 +31,19 @@ namespace Sample01
         {
             InitEF.StartDb();
 
-            Mapper.Initialize(cfg => // In Application_Start()
+            var mapperConfiguration = new MapperConfiguration(cfg => // In Application_Start()
             {
                 cfg.AddProfile<TestProfile>();
             });
-            Mapper.AssertConfigurationIsValid();
+            mapperConfiguration.AssertConfigurationIsValid();
+            var mapper = mapperConfiguration.CreateMapper();
 
-            eagerLoadingAutoMapper();
-            eagerLoadingEF();
-            incorrectLazyLoading();
+            eagerLoadingAutoMapper(mapper);
+            eagerLoadingEF(mapper);
+            incorrectLazyLoading(mapper);
         }
 
-        private static void incorrectLazyLoading()
+        private static void incorrectLazyLoading(IMapper mapper)
         {
             Console.WriteLine("\nincorrectLazyLoading");
 
@@ -52,7 +53,7 @@ namespace Sample01
                 if (user1 != null)
                 {
                     var uiUser = new UserViewModel();
-                    Mapper.Map(source: user1, destination: uiUser);
+                    mapper.Map(source: user1, destination: uiUser);
 
                     Console.WriteLine(uiUser.Name);
                     foreach (var post in uiUser.BlogPosts)
@@ -63,13 +64,13 @@ namespace Sample01
             }
         }
 
-        private static void eagerLoadingAutoMapper()
+        private static void eagerLoadingAutoMapper(IMapper mapper)
         {
             Console.WriteLine("\neagerLoadingAutoMapper");
 
             using (var context = new MyContext())
             {
-                var uiUser = context.Users.ProjectTo<UserViewModel>()
+                var uiUser = context.Users.ProjectTo<UserViewModel>(mapper.ConfigurationProvider)
                                           .FirstOrDefault();
                 if (uiUser != null)
                 {
@@ -82,7 +83,7 @@ namespace Sample01
             }
         }
 
-        private static void eagerLoadingEF()
+        private static void eagerLoadingEF(IMapper mapper)
         {
             Console.WriteLine("\neagerLoadingEF");
 
@@ -93,7 +94,7 @@ namespace Sample01
                 if (user1 != null)
                 {
                     var uiUser = new UserViewModel();
-                    Mapper.Map(source: user1, destination: uiUser);
+                    mapper.Map(source: user1, destination: uiUser);
 
                     Console.WriteLine(uiUser.Name);
                     foreach (var post in uiUser.BlogPosts)

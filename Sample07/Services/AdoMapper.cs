@@ -7,10 +7,12 @@ namespace Sample07.Services
 {
     public abstract class AdoMapper<T> where T : class
     {
+        private readonly IMapper _mapper;
         private readonly SqlConnection _connection;
 
-        protected AdoMapper(string connectionString)
+        protected AdoMapper(string connectionString, IMapper mapper)
         {
+            _mapper = mapper;
             _connection = new SqlConnection(connectionString);
         }
 
@@ -25,7 +27,7 @@ namespace Sample07.Services
                 var reader = command.ExecuteReader();
                 try
                 {
-                    return Mapper.Map<IDataReader, IEnumerable<T>>(reader);
+                    return _mapper.Map<IDataReader, IEnumerable<T>>(reader);
                 }
                 finally
                 {
@@ -48,7 +50,7 @@ namespace Sample07.Services
                 try
                 {
                     reader.Read();
-                    return Mapper.Map<IDataReader, T>(reader);
+                    return _mapper.Map<IDataReader, T>(reader);
                 }
                 finally
                 {
@@ -71,7 +73,7 @@ namespace Sample07.Services
                 try
                 {
                     // moved to https://github.com/AutoMapper/AutoMapper.Data
-                    return Mapper.Map<IDataReader, IEnumerable<T>>(reader);
+                    return _mapper.Map<IDataReader, IEnumerable<T>>(reader);
                 }
                 finally
                 {

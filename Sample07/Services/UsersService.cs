@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using AutoMapper;
 using Sample07.Models;
 using Sample07.Services.Contracts;
 
@@ -7,8 +8,8 @@ namespace Sample07.Services
 {
     public class UsersService : AdoMapper<User>, IUsersService
     {
-        public UsersService(string connectionString)
-            : base(connectionString)
+        public UsersService(string connectionString, IMapper mapper)
+            : base(connectionString, mapper)
         {
         }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using AutoMapper;
-using AutoMapper.Mappers;
 using Sample02.AutoMapperConfig;
 using Sample02.Models;
 
@@ -19,30 +18,23 @@ namespace Sample02
 
             var uiUser = new UserViewModel();
 
-            usingGlobalConfig(dbUser1, uiUser);
-            usingSpecificEngine(dbUser1, uiUser);
+            usingLocalConfig(dbUser1, uiUser);
         }
 
-        private static void usingSpecificEngine(User dbUser1, UserViewModel uiUser)
+        /// <summary>
+        /// AutoMapper 4.2+ uses non-static API. So its config is always local and specific.
+        /// </summary>
+        private static void usingLocalConfig(User dbUser1, UserViewModel uiUser)
         {
-            var configurationStore = new ConfigurationStore(new TypeMapFactory(), MapperRegistry.Mappers);
-            configurationStore.AddProfile<TestProfile1>();
-            var mappingEngine = new MappingEngine(configurationStore);
-            mappingEngine.ConfigurationProvider.AssertConfigurationIsValid();
-
-            mappingEngine.Map(source: dbUser1, destination: uiUser);
-            Console.WriteLine("RegistrationDate: {0}", uiUser.RegistrationDate);
-        }
-
-        private static void usingGlobalConfig(User dbUser1, UserViewModel uiUser)
-        {
-            Mapper.Initialize(cfg => // In Application_Start()
+            var config = new MapperConfiguration(cfg => // In Application_Start()
             {
                 cfg.AddProfile<TestProfile1>();
                 cfg.AddProfile<TestProfile2>();
             });
-            Mapper.Map(source: dbUser1, destination: uiUser);
-            Mapper.AssertConfigurationIsValid();
+            config.AssertConfigurationIsValid();
+
+            var mapper = config.CreateMapper();
+            mapper.Map(source: dbUser1, destination: uiUser);
 
             Console.WriteLine("RegistrationDate: {0}", uiUser.RegistrationDate);
         }

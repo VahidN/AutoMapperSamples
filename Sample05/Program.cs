@@ -24,23 +24,29 @@ namespace Sample05
     {
         static void Main(string[] args)
         {
-            interfaceDynamicMap();
-            iqueryableToGenericList();
-            anonymousListToGenericList();
-            dataTableToGenericList();
+            var config = new MapperConfiguration(cfg =>
+            {
+               cfg.CreateMissingTypeMaps = true; // = Mapper.DynamicMap
+            });
+            var mapper = config.CreateMapper();
+
+            interfaceDynamicMap(mapper);
+            iqueryableToGenericList(mapper);
+            anonymousListToGenericList(mapper);
+            dataTableToGenericList(mapper);
         }
 
-        private static void interfaceDynamicMap()
+        private static void interfaceDynamicMap(IMapper mapper)
         {
             var anonymousObject = new
             {
                 Code = "111",
                 Name = "Test 1"
             };
-            var result = Mapper.DynamicMap<ICustomerService>(anonymousObject);
+            var result = mapper.Map<ICustomerService>(anonymousObject);
         }
 
-        private static void iqueryableToGenericList()
+        private static void iqueryableToGenericList(IMapper mapper)
         {
             var query1 = new List<SalaryList>
             {
@@ -58,10 +64,10 @@ namespace Sample05
                 }
             }.AsQueryable();
 
-            var result = query1.Select(item => Mapper.DynamicMap<SalaryList>(item)).ToList(); ;
+            var result = query1.Select(item => mapper.Map<SalaryList>(item)).ToList(); ;
         }
 
-        private static void anonymousListToGenericList()
+        private static void anonymousListToGenericList(IMapper mapper)
         {
             var anonymousObject = new
             {
@@ -69,7 +75,7 @@ namespace Sample05
                 Month = 1,
                 Salary = 100000
             };
-            var salary = Mapper.DynamicMap<SalaryList>(anonymousObject);
+            var salary = mapper.Map<SalaryList>(anonymousObject);
 
             var anonymousList = new[]
             {
@@ -86,10 +92,10 @@ namespace Sample05
                     Salary = 300000
                 }
             };
-            var salaryList = anonymousList.Select(item => Mapper.DynamicMap<SalaryList>(item)).ToList();
+            var salaryList = anonymousList.Select(item => mapper.Map<SalaryList>(item)).ToList();
         }
 
-        private static void dataTableToGenericList()
+        private static void dataTableToGenericList(IMapper mapper)
         {
             var dataTable = new DataTable("SalaryList");
             dataTable.Columns.Add("User", typeof(string));
@@ -98,9 +104,11 @@ namespace Sample05
 
             var rnd = new Random();
             for (var i = 0; i < 200; i++)
-                dataTable.Rows.Add("User " + i, rnd.Next(1, 12), rnd.Next(400, 2000));
+                dataTable.Rows.Add(string.Format("User {0}", i), rnd.Next(1, 12), rnd.Next(400, 2000));
 
-            var salaryList = Mapper.DynamicMap<IDataReader, List<SalaryList>>(
+            // Moved to: https://github.com/AutoMapper/AutoMapper.Data/
+            // PM> Install-Package AutoMapper.Data -Pre
+            var salaryList = mapper.Map<IDataReader, List<SalaryList>>(
                 dataTable.CreateDataReader());
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Sample13.AutoMapperConfig;
 using Sample13.Models;
@@ -12,7 +13,13 @@ namespace Sample13
     {
         static void Main(string[] args)
         {
-            Mappings.RegisterMappings();
+            var config = new MapperConfiguration(cfg => // In Application_Start()
+            {
+                cfg.AddProfile<UsersProfile>();
+            });
+            config.AssertConfigurationIsValid();
+
+            var mapper = config.CreateMapper();
 
             var users = new List<UserModel>
             {
@@ -30,7 +37,8 @@ namespace Sample13
 
 
             var uiUsers = users.AsQueryable()
-                               .ProjectTo<UserViewModel>(new { userIdentityName = "User.Identity.Name Value Here" })
+                .ProjectTo<UserViewModel>(parameters: new { userIdentityName = "User.Identity.Name Value Here" },
+                                          configuration: mapper.ConfigurationProvider)
                                .ToList();
 
             foreach (var user in uiUsers)

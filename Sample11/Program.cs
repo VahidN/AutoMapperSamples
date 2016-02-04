@@ -14,18 +14,21 @@ namespace Sample11
         {
             InitEF.StartDb();
 
-            Mapper.Initialize(cfg => // In Application_Start()
+            var config = new MapperConfiguration(cfg => // In Application_Start()
             {
                 cfg.AddProfile<TestProfile>();
             });
-            Mapper.AssertConfigurationIsValid();
+            config.AssertConfigurationIsValid();
+
+            var mapper = config.CreateMapper();
 
             using (var context = new MyContext())
             {
                 var user1 = context.Users
                                    .ProjectTo<UserViewModel>(
                                             parameters: new { },
-                                            membersToExpand: viewModel => viewModel.Emails)
+                                            membersToExpand: viewModel => viewModel.Emails,
+                                            configuration: mapper.ConfigurationProvider)
                                    .FirstOrDefault();
 
                 /*

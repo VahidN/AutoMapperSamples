@@ -17,32 +17,33 @@ namespace Sample09
         {
             InitEF.StartDb();
 
-            Mapper.Initialize(cfg => // In Application_Start()
+            var config = new MapperConfiguration(cfg => // In Application_Start()
             {
                 cfg.AddProfile<OrderProfile>();
                 cfg.AddProfile<OrderItemsProfile>();
                 cfg.AddProfile<CustomerProfile>();
             });
-            Mapper.AssertConfigurationIsValid();
+            config.AssertConfigurationIsValid();
 
+            var mapper = config.CreateMapper();
 
-            printCustomers();
-            printOrders();
-            printOrderItems();
-            printOrderDates();
-            printOrderShips();
-            printNumberOfOrders();
+            printCustomers(mapper);
+            printOrders(mapper);
+            printOrderItems(mapper);
+            printOrderDates(mapper);
+            printOrderShips(mapper);
+            printNumberOfOrders(mapper);
         }
 
         /// <summary>
         /// Custom formatter
         /// </summary>
-        private static void printNumberOfOrders()
+        private static void printNumberOfOrders(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 var viewOrders = context.Orders
-                    .ProjectTo<NumberOfOrderViewModel>()
+                    .ProjectTo<NumberOfOrderViewModel>(mapper.ConfigurationProvider)
                     .Decompile()
                     .ToList();
                 // don't use
@@ -57,12 +58,12 @@ namespace Sample09
         /// <summary>
         /// Custom Resolver
         /// </summary>
-        private static void printOrderShips()
+        private static void printOrderShips(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 var viewOrders = context.Orders
-                    .ProjectTo<OrderShipViewModel>()
+                    .ProjectTo<OrderShipViewModel>(mapper.ConfigurationProvider)
                     .Decompile()
                     .ToList();
                 // don't use
@@ -77,12 +78,12 @@ namespace Sample09
         /// <summary>
         /// Projection
         /// </summary>
-        private static void printOrderDates()
+        private static void printOrderDates(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 var viewOrder = context.Orders
-                    .ProjectTo<OrderDateViewModel>()
+                    .ProjectTo<OrderDateViewModel>(mapper.ConfigurationProvider)
                     .Decompile()
                     .FirstOrDefault();
                 // don't use
@@ -99,12 +100,12 @@ namespace Sample09
         /// <summary>
         /// Nested Mapping
         /// </summary>
-        private static void printOrderItems()
+        private static void printOrderItems(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 var viewOrders = context.Orders
-                    .ProjectTo<OrderViewModel>()
+                    .ProjectTo<OrderViewModel>(mapper.ConfigurationProvider)
                     .Decompile()
                     .ToList();
                 // don't use
@@ -123,12 +124,12 @@ namespace Sample09
         /// <summary>
         /// Flattening
         /// </summary>
-        private static void printOrders()
+        private static void printOrders(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 var viewOrders = context.Orders
-                    .ProjectTo<OrderViewModel>()
+                    .ProjectTo<OrderViewModel>(mapper.ConfigurationProvider)
                     .Decompile()
                     .ToList();
                 // don't use
@@ -143,12 +144,12 @@ namespace Sample09
         /// <summary>
         /// NullSubstitution
         /// </summary>
-        private static void printCustomers()
+        private static void printCustomers(IMapper mapper)
         {
             using (var context = new MyContext())
             {
                 var viewCustomers = context.Customers
-                    .ProjectTo<CustomerViewModel>()
+                    .ProjectTo<CustomerViewModel>(mapper.ConfigurationProvider)
                     .Decompile()
                     .ToList();
                 // don't use
