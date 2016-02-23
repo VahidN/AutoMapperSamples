@@ -9,14 +9,16 @@ namespace Sample03
         static void Main(string[] args)
         {
             var usersService = SmObjectFactory.Container.GetInstance<IUsersService>();
-            var user1 = usersService.GetName(id: 1);
-            Console.WriteLine("{0}", user1.RegistrationDate);
+            /*var user1 = usersService.GetName(id: 1);
+            Console.WriteLine("{0}", user1.RegistrationDate);*/
 
-            //var users = usersService.GetUsersList();
-            //foreach (var user in users)
-            //{
-            //    Console.WriteLine("{0}", user.Name);
-            //}
+            var users = usersService.GetUsersList();
+            foreach (var user in users)
+            {
+                Console.WriteLine("{0} - {1}", user.Name, user.RegistrationDate);
+            }
+
+            Console.ReadKey();
         }
     }
 }
