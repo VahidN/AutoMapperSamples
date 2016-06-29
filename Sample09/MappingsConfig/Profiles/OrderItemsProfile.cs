@@ -6,7 +6,7 @@ namespace Sample09.MappingsConfig.Profiles
 {
     public class OrderItemsProfile: Profile
     {
-        protected override void Configure()
+        public OrderItemsProfile()
         {
             this.CreateMap<OrderItem, OrderItemsViewModel>();
         }

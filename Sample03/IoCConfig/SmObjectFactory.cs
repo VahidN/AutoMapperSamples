@@ -45,7 +45,7 @@ namespace Sample03.IoCConfig
             {
                 configuration.AddProfile(profile);
             }
-            container.GetInstance<IMappingEngine>().ConfigurationProvider.AssertConfigurationIsValid();
+            container.GetInstance<IMapper>().ConfigurationProvider.AssertConfigurationIsValid();
         }
     }
 }

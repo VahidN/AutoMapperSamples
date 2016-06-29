@@ -6,7 +6,7 @@ namespace Sample13.AutoMapperConfig
 {
     public class UsersProfile : Profile
     {
-        protected override void Configure()
+        public UsersProfile()
         {
             string userIdentityName = null;
             this.CreateMap<UserModel, UserViewModel>()

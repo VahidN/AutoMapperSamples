@@ -7,7 +7,7 @@ namespace Sample09.MappingsConfig.Profiles
 {
     public class OrderProfile : Profile
     {
-        protected override void Configure()
+        public OrderProfile()
         {
             this.CreateMap<Order, NumberOfOrderViewModel>()
                .ForMember(dest => dest.NumberOfOrders,

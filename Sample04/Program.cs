@@ -24,7 +24,7 @@ namespace Sample04
 
     public class TestProfile : Profile
     {
-        protected override void Configure()
+        public TestProfile()
         {
             this.CreateMap<UserViewModel, User>()
                 .ForMember(user => user.Advertisements, opt => opt.Ignore());

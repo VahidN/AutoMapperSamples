@@ -6,10 +6,9 @@ namespace Sample02.AutoMapperConfig
 {
     public class StringFromDateTimeTypeConverter : ITypeConverter<DateTime, string>
     {
-        public string Convert(ResolutionContext context)
+        public string Convert(DateTime source, ResolutionContext context)
         {
-            var objDateTime = context.SourceValue;
-            return objDateTime == null ? string.Empty : ((DateTime)context.SourceValue).ToString("dd/mm/yyyy", CultureInfo.InvariantCulture);
+            return source.ToString("dd/mm/yyyy", CultureInfo.InvariantCulture);
         }
     }
 }

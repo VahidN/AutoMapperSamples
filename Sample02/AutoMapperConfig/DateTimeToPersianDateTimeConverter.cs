@@ -6,8 +6,8 @@ namespace Sample02.AutoMapperConfig
 {
     public class DateTimeToPersianDateTimeConverter : ITypeConverter<DateTime, string>
     {
-        private readonly string _separator;
         private readonly bool _includeHourMinute;
+        private readonly string _separator;
 
         public DateTimeToPersianDateTimeConverter(string separator = "/", bool includeHourMinute = true)
         {
@@ -15,10 +15,9 @@ namespace Sample02.AutoMapperConfig
             _includeHourMinute = includeHourMinute;
         }
 
-        public string Convert(ResolutionContext context)
+        public string Convert(DateTime source, ResolutionContext context)
         {
-            var objDateTime = context.SourceValue;
-            return objDateTime == null ? string.Empty : toShamsiDateTime((DateTime)context.SourceValue);
+            return toShamsiDateTime(source);
         }
 
         private string toShamsiDateTime(DateTime info)
@@ -34,6 +33,5 @@ namespace Sample02.AutoMapperConfig
                 string.Format("{0}{1}{2}{1}{3} {4}:{5}", pYear, _separator, pMonth.ToString("00", CultureInfo.InvariantCulture), pDay.ToString("00", CultureInfo.InvariantCulture), info.Hour.ToString("00"), info.Minute.ToString("00"))
                 : string.Format("{0}{1}{2}{1}{3}", pYear, _separator, pMonth.ToString("00", CultureInfo.InvariantCulture), pDay.ToString("00", CultureInfo.InvariantCulture));
         }
-
     }
 }

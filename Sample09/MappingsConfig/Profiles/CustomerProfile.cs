@@ -6,7 +6,7 @@ namespace Sample09.MappingsConfig.Profiles
 {
     public class CustomerProfile : Profile
     {
-        protected override void Configure()
+        public CustomerProfile()
         {
             this.CreateMap<Customer, CustomerViewModel>()
              .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(entity => entity.FullName))

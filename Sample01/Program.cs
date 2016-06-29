@@ -19,7 +19,7 @@ namespace Sample01
 
     public class TestProfile : Profile
     {
-        protected override void Configure()
+        public TestProfile()
         {
             this.CreateMap<User, UserViewModel>();
         }

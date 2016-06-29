@@ -6,7 +6,7 @@ namespace Sample02.AutoMapperConfig
 {
     public class TestProfile2 : Profile
     {
-        protected override void Configure()
+        public TestProfile2()
         {
             // type maps are still global.
             // اين تنظيم سراسري هست و به تمام خواص زماني اعمال مي‌شود

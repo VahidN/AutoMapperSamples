@@ -6,7 +6,7 @@ namespace Sample11.MappingsConfig
 {
     public class TestProfile : Profile
     {
-        protected override void Configure()
+        public TestProfile()
         {
             this.CreateMap<SiteUser, UserViewModel>()
                     .ForMember(dest => dest.Addresses, opt => opt.ExplicitExpansion())

@@ -5,7 +5,7 @@ namespace Sample08.MappingProfiles
 {
     public class StudentsProfile : Profile
     {
-        protected override void Configure()
+        public StudentsProfile()
         {
             this.CreateMap<Student, StudentViewModel>();
         }

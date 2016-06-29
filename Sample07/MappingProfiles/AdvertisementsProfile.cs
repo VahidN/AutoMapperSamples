@@ -6,7 +6,7 @@ namespace Sample07.MappingProfiles
 {
     public class AdvertisementsProfile : Profile
     {
-        protected override void Configure()
+        public AdvertisementsProfile()
         {
             this.CreateMap<IDataRecord, Advertisement>()
                 .ForMember(dest => dest.TitleWithOtherName,

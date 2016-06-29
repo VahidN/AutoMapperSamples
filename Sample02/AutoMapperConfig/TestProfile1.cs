@@ -6,7 +6,7 @@ namespace Sample02.AutoMapperConfig
 {
     public class TestProfile1 : Profile
     {
-        protected override void Configure()
+        public TestProfile1()
         {
             // Çíä ÊäÙíã ÓÑÇÓÑí åÓÊ æ Èå ÊãÇã ÎæÇÕ ÒãÇäí ÇÚãÇá ãíÔæÏ
             this.CreateMap<DateTime, string>().ConvertUsing(new DateTimeToPersianDateTimeConverter());

@@ -6,7 +6,7 @@ namespace Sample07.MappingProfiles
 {
     public class UsersProfile : Profile
     {
-        protected override void Configure()
+        public UsersProfile()
         {
             this.CreateMap<IDataRecord, User>();
         }

@@ -7,7 +7,7 @@ namespace Sample10.MappingsConfig
 {
     public class TestProfile : Profile
     {
-        protected override void Configure()
+        public TestProfile()
         {
             this.CreateMap<User, UserViewModel>()
                 .ForMember(dest => dest.CustomName,
