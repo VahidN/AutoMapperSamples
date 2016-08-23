@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using AutoMapper;
 using Sample02.Models;
 
@@ -8,12 +8,12 @@ namespace Sample02.AutoMapperConfig
     {
         public TestProfile1()
         {
-            // Çíä ÊäÙíã ÓÑÇÓÑí åÓÊ æ Èå ÊãÇã ÎæÇÕ ÒãÇäí ÇÚãÇá ãíÔæÏ
+            // Ø§ÙŠÙ† ØªÙ†Ø¸ÙŠÙ… Ø³Ø±Ø§Ø³Ø±ÙŠ Ù‡Ø³Øª Ùˆ Ø¨Ù‡ ØªÙ…Ø§Ù… Ø®ÙˆØ§Øµ Ø²Ù…Ø§Ù†ÙŠ Ø§Ø¹Ù…Ø§Ù„ Ù…ÙŠâ€ŒØ´ÙˆØ¯
             this.CreateMap<DateTime, string>().ConvertUsing(new DateTimeToPersianDateTimeConverter());
 
             this.CreateMap<User, UserViewModel>();
 
-            // Çíä ÊäÙíã ÓİÇÑÔíÊÑ ÇÓÊ
+            // Ø§ÙŠÙ† ØªÙ†Ø¸ÙŠÙ… Ø³ÙØ§Ø±Ø´ÙŠâ€ŒØªØ± Ø§Ø³Øª
             /*this.CreateMap<User, UserViewModel>()
              .ForMember(userViewModel => userViewModel.RegistrationDate,
                         opt => opt.ResolveUsing(src =>

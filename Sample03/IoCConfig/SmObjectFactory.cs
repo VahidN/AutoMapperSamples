@@ -2,7 +2,6 @@
 using System.Threading;
 using AutoMapper;
 using StructureMap;
-using StructureMap.Graph;
 
 namespace Sample03.IoCConfig
 {
@@ -37,14 +36,6 @@ namespace Sample03.IoCConfig
 
         private static void configureAutoMapper(IContainer container)
         {
-            var configuration = container.TryGetInstance<IConfiguration>();
-            if (configuration == null) return;
-            //saying AutoMapper how to resolve services
-            configuration.ConstructServicesUsing(container.GetInstance);
-            foreach (var profile in container.GetAllInstances<Profile>())
-            {
-                configuration.AddProfile(profile);
-            }
             container.GetInstance<IMapper>().ConfigurationProvider.AssertConfigurationIsValid();
         }
     }

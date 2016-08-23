@@ -9,8 +9,9 @@ namespace Sample03.IoCConfig
     {
         public AutoMapperRegistry()
         {
+            var currentAssembly = typeof(AutoMapperRegistry).Assembly;
             var profiles =
-                typeof(AutoMapperRegistry).Assembly.GetTypes()
+                currentAssembly.GetTypes()
                     .Where(t => typeof(Profile).IsAssignableFrom(t))
                     .Select(t => (Profile)Activator.CreateInstance(t));
 
