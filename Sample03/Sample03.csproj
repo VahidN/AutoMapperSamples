@@ -42,8 +42,8 @@
       <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StructureMap, Version=4.3.0.449, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StructureMap.4.4.0\lib\net45\StructureMap.dll</HintPath>
+    <Reference Include="StructureMap, Version=4.4.1.451, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.4.1\lib\net45\StructureMap.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -59,10 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapperConfig\IMapFrom.cs" />
     <Compile Include="AutoMapperConfig\PersianExtensions.cs" />
     <Compile Include="AutoMapperConfig\TestProfile.cs" />
     <Compile Include="IoCConfig\AutoMapperRegistry.cs" />
     <Compile Include="IoCConfig\SmObjectFactory.cs" />
+    <Compile Include="Models\AutoWire\Person.cs" />
+    <Compile Include="Models\AutoWire\PersonViewModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Program.cs" />

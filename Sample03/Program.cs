@@ -18,6 +18,14 @@ namespace Sample03
                 Console.WriteLine("{0} - {1}", user.Name, user.RegistrationDate);
             }
 
+
+            var people = usersService.GetPeopleList();
+            foreach (var person in people)
+            {
+                Console.WriteLine("{0} - {1}", person.Name, person.LastName);
+            }
+
+            Console.WriteLine("\nPress a key...");
             Console.ReadKey();
         }
     }

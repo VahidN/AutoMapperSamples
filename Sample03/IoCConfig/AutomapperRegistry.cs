@@ -1,6 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
+using Sample03.AutoMapperConfig;
 using StructureMap;
 
 namespace Sample03.IoCConfig
@@ -9,22 +9,40 @@ namespace Sample03.IoCConfig
     {
         public AutoMapperRegistry()
         {
-            var currentAssembly = typeof(AutoMapperRegistry).Assembly;
-            var profiles =
-                currentAssembly.GetTypes()
-                    .Where(t => typeof(Profile).IsAssignableFrom(t))
-                    .Select(t => (Profile)Activator.CreateInstance(t));
-
-            var config = new MapperConfiguration(cfg =>
+            this.Scan(scan =>
             {
-                foreach (var profile in profiles)
-                {
-                    cfg.AddProfile(profile);
-                }
+                scan.TheCallingAssembly();
+                //scan.AssemblyContainingType<SomeType>(); // for other asms, if any.
+                scan.WithDefaultConventions();
+
+                scan.AddAllTypesOf<Profile>().NameBy(item => item.FullName);
+
+                scan.AssemblyContainingType(typeof(IMapFrom<>));
+                scan.ConnectImplementationsToTypesClosing(typeof(IMapFrom<>));
             });
 
-            For<MapperConfiguration>().Use(config);
-            For<IMapper>().Use(ctx => ctx.GetInstance<MapperConfiguration>().CreateMapper(ctx.GetInstance));
+            this.For<MapperConfiguration>().Singleton().Use("MapperConfig", ctx =>
+             {
+                 var config = new MapperConfiguration(cfg =>
+                 {
+                     cfg.CreateMissingTypeMaps = true; // It will connect all of the IMapFrom<>'s automatically.
+                     addAllCustomAutoMapperProfiles(ctx, cfg);
+                 });
+                 config.AssertConfigurationIsValid();
+
+                 return config;
+             });
+
+            this.For<IMapper>().Singleton().Use(ctx => ctx.GetInstance<MapperConfiguration>().CreateMapper(ctx.GetInstance));
+        }
+
+        private static void addAllCustomAutoMapperProfiles(IContext ctx, IMapperConfigurationExpression cfg)
+        {
+            var profiles = ctx.GetAllInstances<Profile>().ToList();
+            foreach (var profile in profiles)
+            {
+                cfg.AddProfile(profile);
+            }
         }
     }
 }

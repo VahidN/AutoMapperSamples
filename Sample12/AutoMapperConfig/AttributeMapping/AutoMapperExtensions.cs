@@ -18,7 +18,7 @@ namespace Sample12.AutoMapperConfig.AttributeMapping
                 foreach (var typeMap in mapper.GetAllTypeMaps().Where(i => i.DestinationType == viewModelType))
                 {
                     var propertyMaps = typeMap.GetPropertyMaps()
-                        .Where(propertyMap => !propertyMap.IsIgnored() && propertyMap.SourceMember != null)
+                        .Where(propertyMap => !propertyMap.Ignored && propertyMap.SourceMember != null)
                         .Where(propertyMap => propertyMap.DestinationProperty.Name == viewModelPropertyName);
 
                     foreach (var propertyMap in propertyMaps)

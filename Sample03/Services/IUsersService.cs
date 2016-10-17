@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sample03.Models;
+using Sample03.Models.AutoWire;
 
 namespace Sample03.Services
 {
@@ -7,5 +8,6 @@ namespace Sample03.Services
     {
         UserViewModel GetName(int id);
         IList<UserViewModel> GetUsersList();
+        IList<PersonViewModel> GetPeopleList();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using AutoMapper;
 using StructureMap;
 
 namespace Sample03.IoCConfig
@@ -25,18 +24,10 @@ namespace Sample03.IoCConfig
                     scan.TheCallingAssembly();
                     //scan.AssemblyContainingType<SomeType>(); // for other asms, if any.
                     scan.WithDefaultConventions();
-                    scan.AddAllTypesOf<Profile>().NameBy(item => item.FullName);
                 });
             });
 
-            configureAutoMapper(container);
-
             return container;
-        }
-
-        private static void configureAutoMapper(IContainer container)
-        {
-            container.GetInstance<IMapper>().ConfigurationProvider.AssertConfigurationIsValid();
         }
     }
 }

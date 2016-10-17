@@ -19,12 +19,12 @@ namespace Sample12
 
 
             Mappings.RegisterMappings();
-            ModelMetadataProviders.Current = new MappedMetadataProvider(Mapper.Engine.ConfigurationProvider);
+            ModelMetadataProviders.Current = new MappedMetadataProvider(Mapper.Configuration);
 
             var modelValidatorProvider = ModelValidatorProviders.Providers
                 .Single(provider => provider is DataAnnotationsModelValidatorProvider);
             ModelValidatorProviders.Providers.Remove(modelValidatorProvider);
-            ModelValidatorProviders.Providers.Add(new MappedValidatorProvider(Mapper.Engine.ConfigurationProvider));
+            ModelValidatorProviders.Providers.Add(new MappedValidatorProvider(Mapper.Configuration));
         }
     }
 }

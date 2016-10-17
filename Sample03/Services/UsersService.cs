@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Sample03.Models;
+using Sample03.Models.AutoWire;
 
 namespace Sample03.Services
 {
@@ -45,6 +46,23 @@ namespace Sample03.Services
 
             return users.AsQueryable()
                         .ProjectTo<UserViewModel>(parameters: null, configuration: _mapper.ConfigurationProvider)
+                        .ToList();
+        }
+
+        public IList<PersonViewModel> GetPeopleList()
+        {
+            var users = new List<Person>();
+            for (var i = 0; i < 100; i++)
+            {
+                users.Add(new Person
+                {
+                    Name = string.Format("FName {0}", i),
+                    LastName = string.Format("LName {0}", i)
+                });
+            }
+
+            return users.AsQueryable()
+                        .ProjectTo<PersonViewModel>(parameters: null, configuration: _mapper.ConfigurationProvider)
                         .ToList();
         }
     }
