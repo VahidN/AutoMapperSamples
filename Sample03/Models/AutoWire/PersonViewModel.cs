@@ -1,8 +1,6 @@
-﻿using Sample03.AutoMapperConfig;
-
-namespace Sample03.Models.AutoWire
+﻿namespace Sample03.Models.AutoWire
 {
-    public class PersonViewModel : IMapFrom<Person>
+    public class PersonViewModel
     {
         public string Name { get; set; }
         public string LastName { get; set; }

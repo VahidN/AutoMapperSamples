@@ -59,7 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoMapperConfig\IMapFrom.cs" />
+    <Compile Include="AutoMapperConfig\IHaveCustomMappings.cs" />
     <Compile Include="AutoMapperConfig\PersianExtensions.cs" />
     <Compile Include="AutoMapperConfig\TestProfile.cs" />
     <Compile Include="IoCConfig\AutoMapperRegistry.cs" />

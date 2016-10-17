@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using AutoMapper;
-using Sample03.AutoMapperConfig;
 using StructureMap;
 
 namespace Sample03.IoCConfig
@@ -16,16 +15,13 @@ namespace Sample03.IoCConfig
                 scan.WithDefaultConventions();
 
                 scan.AddAllTypesOf<Profile>().NameBy(item => item.FullName);
-
-                scan.AssemblyContainingType(typeof(IMapFrom<>));
-                scan.ConnectImplementationsToTypesClosing(typeof(IMapFrom<>));
             });
 
             this.For<MapperConfiguration>().Singleton().Use("MapperConfig", ctx =>
              {
                  var config = new MapperConfiguration(cfg =>
                  {
-                     cfg.CreateMissingTypeMaps = true; // It will connect all of the IMapFrom<>'s automatically.
+                     cfg.CreateMissingTypeMaps = true; // It will connect `Person` & `PersonViewModel` automatically.
                      addAllCustomAutoMapperProfiles(ctx, cfg);
                  });
                  config.AssertConfigurationIsValid();
