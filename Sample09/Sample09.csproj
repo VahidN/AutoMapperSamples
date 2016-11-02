@@ -74,10 +74,13 @@
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\InitEF.cs" />
     <Compile Include="Config\MyContext.cs" />
+    <Compile Include="MappingsConfig\Profiles\CustomerAttributeProfile.cs" />
     <Compile Include="MappingsConfig\Profiles\CustomerProfile.cs" />
     <Compile Include="MappingsConfig\Profiles\OrderItemsProfile.cs" />
     <Compile Include="MappingsConfig\Profiles\OrderProfile.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerAttribute.cs" />
+    <Compile Include="ViewModels\CustomerAttributeViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\NumberOfOrderViewModel.cs" />
     <Compile Include="Models\Order.cs" />

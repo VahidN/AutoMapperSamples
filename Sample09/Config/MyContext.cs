@@ -7,6 +7,7 @@ namespace Sample09.Config
     public class MyContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerAttribute> CustomerAttributes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 

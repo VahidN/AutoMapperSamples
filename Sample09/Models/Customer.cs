@@ -13,6 +13,8 @@ namespace Sample09.Models
 
         public virtual ICollection<Order> Orders { get; set; }
 
+        public virtual ICollection<CustomerAttribute> CustomerAttributes { get; set; } // many-to-many relationship
+
         [Computed]
         [NotMapped]
         public string FullName

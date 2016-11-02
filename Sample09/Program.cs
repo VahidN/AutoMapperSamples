@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -6,6 +7,7 @@ using DelegateDecompiler;
 using Sample09.Config;
 using Sample09.MappingsConfig.Profiles;
 using Sample09.ViewModels;
+using System.Data.Entity;
 
 namespace Sample09
 {
@@ -22,6 +24,7 @@ namespace Sample09
                 cfg.AddProfile<OrderProfile>();
                 cfg.AddProfile<OrderItemsProfile>();
                 cfg.AddProfile<CustomerProfile>();
+                cfg.AddProfile<CustomerAttributeProfile>();
             });
             config.AssertConfigurationIsValid();
 
@@ -33,6 +36,43 @@ namespace Sample09
             printOrderDates(mapper);
             printOrderShips(mapper);
             printNumberOfOrders(mapper);
+            printCustomerAttributeViewModelNormally();
+            printCustomerAttributeViewModelUsingAutoMapper(mapper);
+        }
+
+        private static void printCustomerAttributeViewModelUsingAutoMapper(IMapper mapper)
+        {
+            using (var context = new MyContext())
+            {
+                var list = mapper.Map<ICollection<CustomerAttributeViewModel>>(
+                                context.Customers.Include(x => x.CustomerAttributes).ToList());
+
+                foreach (var item in list)
+                {
+                        Console.WriteLine("{0} - {1}", item.CustomerName, item.AttributeName);
+                }
+            }
+        }
+
+        private static void printCustomerAttributeViewModelNormally()
+        {
+            using (var context = new MyContext())
+            {
+                var list = context.Customers
+                                    .SelectMany(customer => customer.CustomerAttributes.Select(attribute =>
+                                                        new CustomerAttributeViewModel
+                                                        {
+                                                            AttributeName = attribute.Name,
+                                                            CustomerName = customer.FullName
+                                                        }))
+                                    .Decompile() // for FullName
+                                    .ToList();
+
+                foreach (var item in list)
+                {
+                    Console.WriteLine("{0} - {1}", item.CustomerName, item.AttributeName);
+                }
+            }
         }
 
         /// <summary>

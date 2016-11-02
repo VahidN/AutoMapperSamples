@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using Sample09.Models;
@@ -20,18 +21,35 @@ namespace Sample09.Config
                 return;
             }
 
+            var attr1 = context.CustomerAttributes.Add(new CustomerAttribute
+            {
+                Name = "Grumpy"
+            });
+
+            var attr2 = context.CustomerAttributes.Add(new CustomerAttribute
+            {
+                Name = "Rich"
+            });
+
+            var attr3 = context.CustomerAttributes.Add(new CustomerAttribute
+            {
+                Name = "Poor"
+            });
+
             var customer1 = context.Customers.Add(new Customer
             {
                 Bio = null,
                 FirstName = "F 1",
-                LastName = "L 1"
+                LastName = "L 1",
+                CustomerAttributes = new List<CustomerAttribute> { attr1, attr2 }
             });
 
             var customer2 = context.Customers.Add(new Customer
             {
                 Bio = "Bio 2",
                 FirstName = "F 2",
-                LastName = "L 2"
+                LastName = "L 2",
+                CustomerAttributes = new List<CustomerAttribute> { attr1, attr3 }
             });
 
             var order1 = context.Orders.Add(new Order
