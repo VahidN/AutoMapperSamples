@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using Sample03.AutoMapperConfig;
 using StructureMap;
 
 namespace Sample03.IoCConfig
@@ -15,6 +16,7 @@ namespace Sample03.IoCConfig
                 scan.WithDefaultConventions();
 
                 scan.AddAllTypesOf<Profile>().NameBy(item => item.FullName);
+                scan.AddAllTypesOf<IHaveCustomMappings>().NameBy(item => item.FullName);
             });
 
             this.For<MapperConfiguration>().Singleton().Use("MapperConfig", ctx =>
@@ -23,6 +25,7 @@ namespace Sample03.IoCConfig
                  {
                      cfg.CreateMissingTypeMaps = true; // It will connect `Person` & `PersonViewModel` automatically.
                      addAllCustomAutoMapperProfiles(ctx, cfg);
+                     addAllIHaveCustomMappings(ctx, cfg);
                  });
                  config.AssertConfigurationIsValid();
 
@@ -38,6 +41,15 @@ namespace Sample03.IoCConfig
             foreach (var profile in profiles)
             {
                 cfg.AddProfile(profile);
+            }
+        }
+
+        private void addAllIHaveCustomMappings(IContext ctx, IMapperConfigurationExpression cfg)
+        {
+            var profiles = ctx.GetAllInstances<IHaveCustomMappings>().ToList();
+            foreach (var profile in profiles)
+            {
+                profile.CreateMappings(cfg);
             }
         }
     }

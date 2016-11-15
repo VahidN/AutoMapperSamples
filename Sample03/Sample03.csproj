@@ -66,6 +66,8 @@
     <Compile Include="IoCConfig\SmObjectFactory.cs" />
     <Compile Include="Models\AutoWire\Person.cs" />
     <Compile Include="Models\AutoWire\PersonViewModel.cs" />
+    <Compile Include="Models\HaveCustomMappings\ApplicationUser.cs" />
+    <Compile Include="Models\HaveCustomMappings\ApplicationUserViewModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Program.cs" />

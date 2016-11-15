@@ -5,6 +5,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Sample03.Models;
 using Sample03.Models.AutoWire;
+using Sample03.Models.HaveCustomMappings;
 
 namespace Sample03.Services
 {
@@ -63,6 +64,23 @@ namespace Sample03.Services
 
             return users.AsQueryable()
                         .ProjectTo<PersonViewModel>(parameters: null, configuration: _mapper.ConfigurationProvider)
+                        .ToList();
+        }
+
+        public IList<ApplicationUserViewModel> GetApplicationUsersList()
+        {
+            var users = new List<ApplicationUser>();
+            for (var i = 0; i < 100; i++)
+            {
+                users.Add(new ApplicationUser
+                {
+                    Name = string.Format("FName {0}", i),
+                    LastName = string.Format("LName {0}", i)
+                });
+            }
+
+            return users.AsQueryable()
+                        .ProjectTo<ApplicationUserViewModel>(parameters: null, configuration: _mapper.ConfigurationProvider)
                         .ToList();
         }
     }
